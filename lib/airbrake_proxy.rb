@@ -59,24 +59,34 @@ module AirbrakeProxy
     unless authorized_to_notify?(redis_key)
       raise TooManyNotification.new("#{redis_key} was notified too many times")
     end
+
     yield
   end
 
-  def key(exception)
-    "#{KEY_PREFIX}#{(exception&.message || exception.inspect).parameterize}"
+  def key(exception_or_message)
+    msg = case exception_or_message
+    when String
+      exception_or_message
+    when StandardError, Exception
+      exception_or_message.message
+    else
+      exception_or_message.to_s
+    end
+    "#{KEY_PREFIX}#{msg.parameterize}"
   end
 
   def authorized_to_notify?(key)
     return false if RedisProxy.get(key).to_i >= THRESHOLD # We won't hint Redis#incr(key) to not reset timelife of key
-    mark_as_notify(key) # return value is a true predicate
+    mark_as_notify!(key) # return value is a true predicate
+    true
   end
 
-  def mark_as_notify(key)
-    unless RedisProxy.exists(key)
-      RedisProxy.set(key, 0)
-      RedisProxy.expire(key, T_5_HOURS)
-    end
+  def mark_as_notify!(key)
+    RedisProxy.multi
     RedisProxy.incr(key)
+    RedisProxy.expire(key, T_1_HOUR)
+    RedisProxy.exec
+    nil
   end
 
   private
