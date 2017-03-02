@@ -1,8 +1,16 @@
 # AirbrakeProxy
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/airbrake_proxy`. To experiment with that code, run `bin/console` for an interactive prompt.
+[![Gem Version](https://badge.fury.io/rb/airbrake_proxy.svg)](http://badge.fury.io/rb/airbrake_proxy)
 
-TODO: Delete this and the text above, and describe your gem
+[![Code Climate](https://codeclimate.com/github/FinalCAD/airbrake_proxy.png)](https://codeclimate.com/github/FinalCAD/airbrake_proxy)
+
+[![Dependency Status](https://gemnasium.com/FinalCAD/airbrake_proxy.png)](https://gemnasium.com/FinalCAD/airbrake_proxy)
+
+[![Build Status](https://travis-ci.org/FinalCAD/airbrake_proxy.png?branch=master)](https://travis-ci.org/FinalCAD/airbrake_proxy) (Travis CI)
+
+[![Coverage Status](https://coveralls.io/repos/FinalCAD/airbrake_proxy/badge.png)](https://coveralls.io/r/FinalCAD/airbrake_proxy)
+
+Basic Circuit Breaker to attempt not reach Airbrake limit for the same exception
 
 ## Installation
 
@@ -22,7 +30,6 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
 
 ## Development
 
@@ -38,4 +45,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
