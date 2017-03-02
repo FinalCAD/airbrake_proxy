@@ -8,7 +8,7 @@
 
 [![Build Status](https://travis-ci.org/FinalCAD/airbrake_proxy.png?branch=master)](https://travis-ci.org/FinalCAD/airbrake_proxy) (Travis CI)
 
-[![Coverage Status](https://coveralls.io/repos/FinalCAD/airbrake_proxy/badge.png)](https://coveralls.io/r/FinalCAD/airbrake_proxy)
+[![Coverage Status](https://coveralls.io/repos/github/FinalCAD/airbrake_proxy/badge.svg?branch=master)](https://coveralls.io/github/FinalCAD/airbrake_proxy?branch=master)
 
 Basic Circuit Breaker to attempt not reach Airbrake limit for the same exception
 
@@ -18,6 +18,28 @@ Add this line to your application's Gemfile:
 
 ```ruby
 gem 'airbrake_proxy'
+```
+
+Please add a config file on your project.
+
+Rails sample
+
+`config/initializers/airbrake_proxy.rb`
+
+```ruby
+AirbrakeProxy.configure do |conf|
+  conf.redis  = Resque.redis
+  conf.logger = Rails.logger
+end
+```
+
+in `spec/spec_helper.rb` or `spec/rails_helper.rb`
+
+```ruby
+AirbrakeProxy.configure do |conf|
+  conf.redis  = MockRedis.new
+  conf.logger = Logger.new($stderr)
+end
 ```
 
 And then execute:
@@ -30,6 +52,7 @@ Or install it yourself as:
 
 ## Usage
 
+Simply use `AirbrakeProxy.notify(exception)` in your code instead of `Airbrake.notify exception`
 
 ## Development
 
