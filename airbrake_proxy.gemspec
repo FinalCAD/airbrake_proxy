@@ -25,4 +25,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "airbrake", "~> 5.6"
   spec.add_development_dependency "activesupport", "~> 4.2"
   spec.add_development_dependency "time_constants", "~> 0.2"
+  spec.add_development_dependency "redis", "~> 3.3"
 end

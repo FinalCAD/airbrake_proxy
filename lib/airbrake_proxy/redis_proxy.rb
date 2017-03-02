@@ -1,3 +1,5 @@
+require 'redis'
+
 module RedisProxy
   extend self
 
@@ -7,10 +9,10 @@ module RedisProxy
       redis.send method, *args
     rescue Redis::TimeoutError, Redis::CannotConnectError
       if (tries += 1) < 10
-        Rails.logger.warn '[RedisProxy] Retry a Redis call'
+        logger.warn '[RedisProxy] Retry a Redis call'
         retry
       else
-        Rails.logger.warn '[RedisProxy] Fail a Redis call after 10 tries'
+        logger.warn '[RedisProxy] Fail a Redis call after 10 tries'
         raise
       end
     end
@@ -20,5 +22,9 @@ module RedisProxy
 
   def redis
     @redis ||= AirbrakeProxy.configuration.redis
+  end
+
+  def logger
+    @logger ||= AirbrakeProxy.configuration.logger
   end
 end

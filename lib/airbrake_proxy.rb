@@ -84,5 +84,4 @@ module AirbrakeProxy
   def logger
     @logger ||= AirbrakeProxy.configuration.logger
   end
-
 end
